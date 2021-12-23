@@ -14,7 +14,23 @@ The character space for the passwords are as follows
 •	Password can be 4 and 5 characters long
 •	Can be any combination from the sets A-Z,a-z,0-9,!@#$%
 
-For this project, I built a tool that can brute-force a password from a list of hashes.
 
 # What my code does
-One way to speed up this process of brute forcing is to have multiple machines brute force a subset of passwords so I produced a program that will give this task to at least 2 VMs to do the work and is coordinated by the host. Each VM should brute-force over a different range of characters until one hash is found. Upon finding the password, the VM will notify the host and have the host terminate the process.
+One way to speed up this process of brute forcing is to have multiple machines brute force a subset of passwords so I produced a program that will give this task to at least 2 VMs (Ubuntu) to do the work and is coordinated by the host (Windows). Each VM brute-forced over a different range of characters until one hash is found. Upon finding the password, the VM will notify the host and have the host terminate the process.
+
+
+# Direction on how to run program
+open directory where your 'server.py' is located
+execute in cmd : py server.py
+execute in terminal : python3 client1.py
+execute in terminal : python3 client2.py
+
+
+# References
+The resources from the following URLs helped me complete this project:
+•	Youtube: https://www.youtube.com/watch?v=H_Yx73upCuY&t=3s
+•	Stack Overflow: https://stackoverflow.com/questions/1557571/how-do-i-get-time-of-a-python-programs-execution
+•	Real Python: https://realpython.com/python-sockets/
+•	GeeksforGeeks: https://www.geeksforgeeks.org/permutation-and-combination-in-python/
+
+
