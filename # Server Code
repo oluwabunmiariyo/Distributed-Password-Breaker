@@ -1,0 +1,52 @@
+import socket
+import os
+from _thread import *
+import threading
+import time
+
+host = '192.168.56.107'
+port = 21541
+connections = []
+counter = 0
+
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
+server_socket.bind((host, port))
+server_socket.listen(3)
+print('Server is listening....')
+        
+def server_program(conn):
+    conn.send('Welcome'.encode())
+    connections.append(conn) 
+    while True:
+        
+        passwordhash = input()
+        for n in connections:
+            if passwordhash == 'quit':
+                conn.close()
+            if len(str.encode(passwordhash)) > 0:
+                conn.send(str.encode(passwordhash))
+                data = str(conn.recv(1024), 'utf-8')
+                print(data, end="")
+                counter=-1
+         
+            n.sendall(passwordhash.encode())
+            
+                 
+    conn.close()
+        
+
+while True:
+    for n in range (2):
+        conn, address = server_socket.accept()
+        print("Connection established")
+
+        thread = threading.Thread(target=server_program, args=(conn,))
+        thread.start()
+       
+        counter+=1
+        time.sleep(20)
+        os._exit(1)
+
+if __name__ == '__main__':
+    
+    server_program()
