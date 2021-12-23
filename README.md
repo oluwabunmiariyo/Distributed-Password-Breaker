@@ -20,7 +20,8 @@ One way to speed up this process of brute forcing is to have multiple machines b
 
 
 # Direction on how to run program
-open directory where your 'server.py' is located
+You can rename Server Code, Client1 Code and Client2 Code as server.py, client1.py and client2.py respectively
+open directory where your code is located
 execute in cmd : py server.py
 execute in terminal : python3 client1.py
 execute in terminal : python3 client2.py
