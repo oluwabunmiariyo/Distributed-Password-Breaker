@@ -1,0 +1,52 @@
+import socket
+from itertools import permutations
+import hashlib
+from datetime import datetime
+import os
+
+   
+host = '192.168.56.107'  
+port = 21541
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
+client_socket.connect((host, port))
+
+flag = 0
+counter = 0
+
+passwordhash = input('Enter the hash to crack: ')
+start = datetime.now()
+permutate = permutations(['!','@','#','$','%',
+                          '0','1','2','3','4','5','6','7','8','9',
+                          'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+                          'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'], 5)
+end = datetime.now()
+timespent = end - start
+
+def client_program():
+    global counter
+    start = datetime.now()
+    while True:  
+        data = client_socket.recv(1024)
+        
+        for word in permutate:
+            password = ''.join(word).encode('utf-8')
+            bruteforcedhash = hashlib.md5(password.strip()).hexdigest()
+            counter += 1
+            if bruteforcedhash == passwordhash:
+                print ('The password has been found')
+                print('The hashed password is', ''.join(word))
+                print('We iterated through ' + str(counter-1) + ' passwords before a match was found')
+                print ('Started at: ', start, ',Ended at: ', end,',Total time spent is: ', timespent)
+                flag = 1
+                client_socket.close()
+                os._exit()
+            
+
+    if flag == 0:
+        print('The password is not in your wordlist')
+        print('We iterated through ' + str(counter) + ' passwords but could not find a match')
+		 
+    client_socket.close()  
+
+if __name__ == '__main__':
+    client_program()
